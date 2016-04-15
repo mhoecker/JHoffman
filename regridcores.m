@@ -1,8 +1,6 @@
 %Set number of random data points
 Ndata	=	1024;
 %make random locations for "cores"
-xyz	=	2*rand(3,Ndata)-1	;
-xyz	=	xyz./sqrt(sum(xyz.*xyz,1));
 %Core location latitude
 lat	=	(180/pi)*acos(1-2*rand(1,Ndata))-90;
 %Core location longitude

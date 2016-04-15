@@ -1,5 +1,5 @@
 %Set number of random data points
-Ndata=128;
+Ndata=256;
 %make random locations for "cores"
 xyz=2*rand(3,Ndata)-1	;
 xyz=xyz./sqrt(sum(xyz.*xyz,1));
@@ -8,7 +8,7 @@ lat=(180/pi)*asin(-xyz(3,:));
 %Core location longitude
 lon=(180/pi)*atan2(xyz(1,:),xyz(2,:));
 %Value at eat sample location
-dat=rand(Ndata,1);
+dat=cos(2*pi*lat/180).*cos(2*pi*lon/180)+.1*rand(1,Ndata);
 %Plot the location of the points
 subplot(2,2,1)
 plot(lon,lat,"o;;")

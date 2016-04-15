@@ -21,6 +21,7 @@ glat=-90:dlat:90;
 glon=-180:dlon:180;
 datgrid=zeros(length(glat),length(glon));
 gridcell=zeros(2,length(lon));
+incell=cell(length(glat),length(glon));
 % take average of values in each grid
 for i=1:length(glat)
 	for j=1:length(glon)
@@ -32,6 +33,7 @@ for i=1:length(glat)
 			inbox=inbox&(glon(j)-dlon/2<=lon(k));
 			inbox=inbox&(lon(k)<glon(j)+dlon/2);
 			if(inbox)
+				incell{i,j}=[incell{i,j},k];
 				gridcell(:,k)=[j,i];
 				datsingrid=datsingrid+1;
 				val=val+dat(k);

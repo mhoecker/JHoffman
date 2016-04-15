@@ -32,7 +32,7 @@ for i=1:length(glat)
 			inbox=inbox&(glon(j)-dlon/2<=lon(k));
 			inbox=inbox&(lon(k)<glon(j)+dlon/2);
 			if(inbox)
-				gridcel(:,k)=[j,i];
+				gridcell(:,k)=[j,i];
 				datsingrid=datsingrid+1;
 				val=val+dat(k);
 			end%if

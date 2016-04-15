@@ -1,5 +1,5 @@
 %Set number of random data points
-Ndata=16;
+Ndata=128;
 %make random locations for "cores"
 xyz=2*rand(3,Ndata)-1	;
 xyz=xyz./sqrt(sum(xyz.*xyz,1));
@@ -10,16 +10,17 @@ lon=(180/pi)*atan2(xyz(1,:),xyz(2,:));
 %Value at eat sample location
 dat=rand(Ndata,1);
 %Plot the location of the points
-subplot(2,1,1)
+subplot(2,2,1)
 plot(lon,lat,"o;;")
 xlim([-180,180])
 ylim([-90,90])
 % Make grid to put averages in
-dlat=5;
-dlon=5;
+dlat=15;
+dlon=30;
 glat=-90:dlat:90;
 glon=-180:dlon:180;
 datgrid=zeros(length(glat),length(glon));
+ingrid=zeros(length(glat),length(glon));
 gridcell=zeros(2,length(lon));
 incell=cell(length(glat),length(glon));
 % take average of values in each grid
@@ -35,18 +36,24 @@ for i=1:length(glat)
 			if(inbox)
 				incell{i,j}=[incell{i,j},k];
 				gridcell(:,k)=[j,i];
-				datsingrid=datsingrid+1;
+				ingrid(i,j)=ingrid(i,j)+1;
 				val=val+dat(k);
 			end%if
 		end%for
-		if(datsingrid==0)
+		if(ingrid(i,j)==0)
 			% if no data exists set to NaN
 			datgrid(i,j)=NaN;
 		else
-			datgrid(i,j)=val/datsingrid;
+			datgrid(i,j)=val;
 		end%if
 	end%for
 end%for
-subplot(2,1,2)
+datgrid=datgrid./ingrid;
+subplot(2,2,2)
 pcolor(glon,glat,datgrid)
 shading flat
+subplot(2,2,3)
+pcolor(glon,glat,ingrid)
+shading flat
+subplot(2,2,4)
+plot(1:Ndata,glat(gridcell(2,:)),"x;lat;",1:Ndata,glon(gridcell(1,:)),"+;lon;")

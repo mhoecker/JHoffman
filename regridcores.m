@@ -7,12 +7,13 @@ xyz	=	xyz./sqrt(sum(xyz.*xyz,1));
 lat	=	(180/pi)*acos(1-2*rand(1,Ndata))-90;
 %Core location longitude
 lon	=	360*rand(1,Ndata);
+lon	=	-2+0*lon;
 %Value at eat sample location
 dat	=	sin(2*pi*lat/180).*cos(2*pi*lon/180)+.2*rand(1,Ndata);
 %Plot the location of the points
 subplot(2,2,1)
 plot(lon,lat,"o;;")
-xlim([min(lon),max(lon)])
+xlim([-360,360])
 ylim([-90,90])
 title("Sample locations")
 % Make grid to put averages in
@@ -29,9 +30,9 @@ incell	=	cell(Nlon,Nlat);
 % take average of values in each grid
 for k=1:Ndata
 	i		=	round((lon(k)-glon(1))/dlon);
-	i		=	mod(i-1,Nlon)+1;
+	i		=	mod(i,Nlon)+1;
 	j		=	round((lat(k)-glat(1))/dlat);
-	j		=	mod(j-1,Nlat)+1;
+	j		=	mod(j,Nlat)+1;
 	incell{i,j}	=	[incell{i,j},k];
 	gridcell(:,k)	=	[i,j];
 	ingrid(i,j)	=	ingrid(i,j)+1;

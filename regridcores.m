@@ -7,7 +7,6 @@ xyz	=	xyz./sqrt(sum(xyz.*xyz,1));
 lat	=	(180/pi)*acos(1-2*rand(1,Ndata))-90;
 %Core location longitude
 lon	=	360*rand(1,Ndata);
-lon	=	-2+0*lon;
 %Value at eat sample location
 dat	=	sin(2*pi*lat/180).*cos(2*pi*lon/180)+.2*rand(1,Ndata);
 %Plot the location of the points
